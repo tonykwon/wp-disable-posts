@@ -21,9 +21,6 @@ class WP_Disable_Posts
 		/* removes Post Type `Post` related menus from the sidebar menu */
 		add_action( 'admin_menu', array( __CLASS__, 'remove_post_type_post' ) );
 
-		add_action( 'parse_request', array( __CLASS__, 'check_post_type' ) );
-		add_action( 'posts_selection', array( __CLASS__, 'check_post_type' ) );
-
 		if ( !is_admin() && ($pagenow != 'wp-login.php') ) {
 			/* need to return a 404 when post_type `post` objects are found */
 			add_action( 'posts_results', array( __CLASS__, 'check_post_type' ) );
