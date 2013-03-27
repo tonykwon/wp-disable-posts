@@ -13,11 +13,26 @@ class WP_Disable_Posts
 {
 	public function __construct()
 	{
+		global $pagenow;
+
 		/* checks the request and redirects to the dashboard */
 		add_action( 'init', array( __CLASS__, 'disallow_post_type_post') );
 
 		/* removes Post Type `Post` related menus from the sidebar menu */
 		add_action( 'admin_menu', array( __CLASS__, 'remove_post_type_post' ) );
+
+		add_action( 'parse_request', array( __CLASS__, 'check_post_type' ) );
+		add_action( 'posts_selection', array( __CLASS__, 'check_post_type' ) );
+
+		if ( !is_admin() && ($pagenow != 'wp-login.php') ) {
+			/* need to return a 404 when post_type `post` objects are found */
+			add_action( 'posts_results', array( __CLASS__, 'check_post_type' ) );
+
+			if ( is_search() ) {
+				/* do not return any instances of post_type `post` */
+				add_filter( 'pre_get_posts', array( __CLASS__, 'remove_from_search_filter' ) );
+			}
+		}
 	}
 
 	/**
@@ -95,6 +110,54 @@ class WP_Disable_Posts
 		}
 	}
 
+
+	/**
+	 * checks the SQL statement to see if we are trying to fetch post_type `post`
+	 *
+	 * @access public
+	 * @param array $posts,  found posts based on supplied SQL Query ($wp_query->request)
+	 * @return array $posts, found posts
+	 */
+	public function check_post_type( $posts = array() )
+	{
+		global $wp_query;
+
+		$look_for = "wp_posts.post_type = 'post'";
+		$instance = strpos( $wp_query->request, $look_for );
+		/*
+			http://localhost/?m=2013		- yearly archives
+			http://localhost/?m=201303		- monthly archives
+			http://localhost/?m=20130327	- daily archives
+			http://localhost/?cat=1			- category archives
+			http://localhost/?tag=foobar	- tag archives
+			http://localhost/?p=1			- single post
+		*/
+		if ( $instance !== false ) {
+			$posts = array(); // we are querying for post type `post`
+		}
+
+		return $posts;
+	}
+
+	/**
+	 * excludes post type `post` to be returned from search
+	 *
+	 * @access public
+	 * @param null
+	 * @return object $query, wp_query object
+	 */
+	public function remove_from_search_filter( $query )
+	{
+		$post_types = get_post_types();
+
+		if ( array_key_exists('post', $post_types) ) {
+			/* exclude post_type `post` from the query results */
+			unset( $post_types['post'] );
+		}
+		$query->set( 'post_type', array_values($post_types) );
+
+		return $query;
+	}
 }
 
 new WP_Disable_Posts;
