@@ -40,7 +40,7 @@ class WP_Disable_Posts
 	 * @param none
 	 * @return void
 	 */
-	public function disallow_post_type_post()
+	public static function disallow_post_type_post()
 	{
 		global $pagenow, $wp;
 
@@ -64,7 +64,7 @@ class WP_Disable_Posts
 	 * @return void
 	 *
 	 */
-	public function remove_post_type_post()
+	public static function remove_post_type_post()
 	{
 		global $menu, $submenu;
 
@@ -115,7 +115,7 @@ class WP_Disable_Posts
 	 * @param array $posts,  found posts based on supplied SQL Query ($wp_query->request)
 	 * @return array $posts, found posts
 	 */
-	public function check_post_type( $posts = array() )
+	public static function check_post_type( $posts = array() )
 	{
 		global $wp_query;
 
@@ -143,7 +143,7 @@ class WP_Disable_Posts
 	 * @param null
 	 * @return object $query, wp_query object
 	 */
-	public function remove_from_search_filter( $query )
+	public static function remove_from_search_filter( $query )
 	{
 		$post_types = get_post_types();
 
