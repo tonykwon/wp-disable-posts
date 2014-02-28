@@ -25,10 +25,8 @@ class WP_Disable_Posts
 			/* need to return a 404 when post_type `post` objects are found */
 			add_action( 'posts_results', array( __CLASS__, 'check_post_type' ) );
 
-			if ( is_search() ) {
-				/* do not return any instances of post_type `post` */
-				add_filter( 'pre_get_posts', array( __CLASS__, 'remove_from_search_filter' ) );
-			}
+			/* do not return any instances of post_type `post` */
+			add_filter( 'pre_get_posts', array( __CLASS__, 'remove_from_search_filter' ) );
 		}
 	}
 
