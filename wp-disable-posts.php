@@ -18,8 +18,11 @@ class WP_Disable_Posts
 		/* checks the request and redirects to the dashboard */
 		add_action( 'init', array( __CLASS__, 'disallow_post_type_post') );
 
+		/* removes Post Type `Post` */
+		add_action( 'init', array( __CLASS__, 'remove_post_type_post') );
+
 		/* removes Post Type `Post` related menus from the sidebar menu */
-		add_action( 'admin_menu', array( __CLASS__, 'remove_post_type_post' ) );
+		add_action( 'admin_menu', array( __CLASS__, 'remove_from_admin_menu' ) );
 
 		if ( !is_admin() && ($pagenow != 'wp-login.php') ) {
 			/* need to return a 404 when post_type `post` objects are found */
@@ -55,6 +58,22 @@ class WP_Disable_Posts
 	}
 
 	/**
+	 * removes the Post Type `post` from the global variable `$wp_post_types`
+	 *
+	 * @access public
+	 * @param none
+	 * @return void
+	 */
+	public static function remove_post_type_post()
+	{
+		global $wp_post_types;
+
+		if ( isset($wp_post_types['post']) ) {
+			unset( $wp_post_types['post'] );
+		}
+	}
+
+	/**
 	 * loops through $menu and $submenu global arrays to remove any `post` related menus and submenu items
 	 *
 	 * @access public
@@ -62,7 +81,7 @@ class WP_Disable_Posts
 	 * @return void
 	 *
 	 */
-	public static function remove_post_type_post()
+	public static function remove_from_admin_menu()
 	{
 		global $menu, $submenu;
 
