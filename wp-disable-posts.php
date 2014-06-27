@@ -143,6 +143,10 @@ class WP_Disable_Posts
 	 */
 	public static function remove_from_search_filter( $query )
 	{
+		if ( !is_search() ) {
+			return $query;
+		}
+		
 		$post_types = get_post_types();
 
 		if ( array_key_exists('post', $post_types) ) {
