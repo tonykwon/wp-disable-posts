@@ -46,7 +46,7 @@ class WP_Disable_Posts
 			case 'edit.php':
 			case 'edit-tags.php':
 			case 'post-new.php':
-				if ( !array_key_exists('post_type', $_GET) && !array_key_exists('taxonomy', $_GET) ) {
+				if ( !array_key_exists('post_type', $_GET) && !array_key_exists('taxonomy', $_GET) && !$_POST ) {
 					wp_safe_redirect( get_admin_url(), 301 );
 					exit;
 				}
@@ -146,7 +146,7 @@ class WP_Disable_Posts
 		if ( !is_search() ) {
 			return $query;
 		}
-		
+
 		$post_types = get_post_types();
 
 		if ( array_key_exists('post', $post_types) ) {
