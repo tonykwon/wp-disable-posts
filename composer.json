@@ -1,0 +1,14 @@
+{
+    "name": "lucatume/wp-disable-posts",
+    "description": "Removes and disables WordPress the post post type.",
+    "type": "wordpress-plugin",
+    "license": "GPL 3.0",
+    "authors": [
+        {
+            "name": "Luca Tumedei",
+            "email": "luca@theaveragedev.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
