@@ -159,4 +159,9 @@ class WP_Disable_Posts
 	}
 }
 
-new WP_Disable_Posts;
+function tk_disable_posts(){
+    new WP_Disable_Posts;
+}
+
+add_action('plugins_loaded', 'tk_disable_posts');
+
