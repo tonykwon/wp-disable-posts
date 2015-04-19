@@ -1,12 +1,13 @@
 {
-    "name": "lucatume/wp-disable-posts",
+    "name": "tonykwon/wp-disable-posts",
     "description": "Removes and disables WordPress the post post type.",
     "type": "wordpress-plugin",
     "license": "GPL 3.0",
     "authors": [
         {
-            "name": "Luca Tumedei",
-            "email": "luca@theaveragedev.com"
+            "name": "Tony Kwon",
+            n78@gmail.com
+            "email": "tonykwon78@gmail.com"
         }
     ],
     "minimum-stability": "dev",
