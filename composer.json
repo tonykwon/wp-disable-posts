@@ -1,6 +1,6 @@
 {
     "name": "tonykwon/wp-disable-posts",
-    "description": "Removes and disables WordPress the post post type.",
+    "description": "This plugin disables the built-in WordPress Post Type `post`.",
     "type": "wordpress-plugin",
     "license": "GPL 3.0",
     "authors": [
