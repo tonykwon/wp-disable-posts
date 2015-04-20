@@ -1,0 +1,14 @@
+{
+    "name": "tonykwon/wp-disable-posts",
+    "description": "This plugin disables the built-in WordPress Post Type `post`.",
+    "type": "wordpress-plugin",
+    "license": "GPL 3.0",
+    "authors": [
+        {
+            "name": "Tony Kwon",
+            "email": "tonykwon78@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
