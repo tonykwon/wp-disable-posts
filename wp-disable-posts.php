@@ -143,7 +143,7 @@ class WP_Disable_Posts
 	 */
 	public static function remove_from_search_filter( $query )
 	{
-		if ( !is_search() ) {
+		if ( !is_search() || !$query->is_main_query() ) {
 			return $query;
 		}
 
