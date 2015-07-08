@@ -143,11 +143,15 @@ class WP_Disable_Posts
 	 */
 	public static function remove_from_search_filter( $query )
 	{
-		if ( !is_search() ) {
+		if ( !is_search() || !$query->is_main_query() ) {
 			return $query;
 		}
 
-		$post_types = get_post_types();
+		$post_types = get_post_types(
+			array(
+				'exclude_from_search' => false
+			)
+		);
 
 		if ( array_key_exists('post', $post_types) ) {
 			/* exclude post_type `post` from the query results */
