@@ -76,7 +76,7 @@ class WP_Disable_Posts
 		foreach( $menu as $k => $v ) {
 			foreach($v as $key => $val) {
 				switch($val) {
-					case 'Posts':
+					case __('Posts'):
 						unset($menu[$k]);
 						$done = true;
 						break;
